@@ -17,7 +17,7 @@
                     Editar Paciente
                 </div>
                 <div class="p-1 mt-2">
-                    <div class=" p-2 font-normal tracking-wide w-full  rounded-lg bg-white border shadow-sm ">
+                    <div class=" p-2 font-normal tracking-wide w-96 text-justify  rounded-lg bg-white border shadow-sm ">
                         <div class="flex m-2 aspect-auto">
                             <div class="flex-none">
                                 <button class="bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935] "
@@ -124,7 +124,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div x-show="!open" class="w-screen mx-auto ">
+                        <div x-show="!open" class="w-11/12 mx-auto ">
                             <div class="overflow-x-auto mx-auto overflow-hidden bg-white rounded-lg shadow ">
                                 <table class="w-fit overflow-hidden bg-white rounded-lg shadow ">
                                     <thead class="border-b border-gray-500 bg-gray-50">

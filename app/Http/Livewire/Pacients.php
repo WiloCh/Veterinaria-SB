@@ -55,10 +55,11 @@ class Pacients extends Component
             'sexo' => $this->sexo,
             'propietario' => $this->propietario
         ]);
+        $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
 
     }
     public function edit(Pacient $pacient ){
-        $this->accion = 'update';
+        $this->accion = "update";
         $this->nombre = $pacient->nombre;
         $this->fecha = $pacient->fecha_nacimiento;
         $this->tipo = $pacient->tipo;
@@ -66,10 +67,7 @@ class Pacients extends Component
         $this->raza = $pacient->raza;
         $this->sexo = $pacient->sexo;
         $this->propietario = $pacient->propietario;
-
         $this->id_paciente = $pacient->id;
-
-
     }
     public function update(){
         $pacient = Pacient::find($this->id_paciente);
@@ -82,12 +80,13 @@ class Pacients extends Component
             'sexo' => $this->sexo,
             'propietario' => $this->propietario
         ]);
-
+        $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
     }
     public function destroy(Pacient $pacient){
         return $pacient->delete();
     }
     public function default(){
-        return $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario']);
+        
+        $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
     }
 }
