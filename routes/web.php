@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PacientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/pacients', [PacientController::class, 'index'])->name('pacient');
+
 });
