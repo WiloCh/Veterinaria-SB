@@ -17,7 +17,7 @@
                     Editar Paciente
                 </div>
                 <div class="p-1 mt-2">
-                    <div class=" p-2 font-normal tracking-wide w-96 text-justify  rounded-lg bg-white border shadow-sm ">
+                    <div class=" p-2 font-normal tracking-wide w-full text-justify  rounded-lg bg-white border shadow-sm ">
                         <div class="flex m-2 aspect-auto">
                             <div class="flex-none">
                                 <button class="bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935] "

@@ -39,7 +39,7 @@ class Pacients extends Component
 
     public function render()
     {
-        $pacients = Pacient::all();
+        $pacients = Pacient::orderBy('id', 'desc');
         return view('livewire.pacients', compact('pacients'));
     }
     public function store()
@@ -86,7 +86,7 @@ class Pacients extends Component
         return $pacient->delete();
     }
     public function default(){
-        
+
         $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
     }
 }
