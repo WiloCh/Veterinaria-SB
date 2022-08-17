@@ -39,7 +39,9 @@ class Pacients extends Component
 
     public function render()
     {
-        $pacients = Pacient::orderBy('id', 'desc');
+        // $pacients = Pacient::orderBy('id', 'desc');
+        $pacients = Pacient::all();
+        // dd($pacients);
         return view('livewire.pacients', compact('pacients'));
     }
     public function store()

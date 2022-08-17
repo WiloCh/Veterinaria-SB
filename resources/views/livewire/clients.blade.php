@@ -8,13 +8,13 @@
         <div class="">
             <div x-cloak x-data="{ open: false, for_edit: false, add: false, edit: false }">
                 <div x-show="!open" class="uppercase my-2 font-semibold tracking-wide w-full  rounded p-2 bg-white">
-                    Lista de Pacientes
+                    Lista de Clientes
                 </div>
                 <div x-show="add" class="uppercase my-2 font-semibold tracking-wide w-full  rounded p-2 bg-white">
-                    Agregar Paciente
+                    Agregar Cliente
                 </div>
                 <div x-show="edit" class="uppercase my-2 font-semibold tracking-wide w-full  rounded p-2 bg-white">
-                    Editar Paciente
+                    Editar Cliente
                 </div>
                 <div class="p-1 mt-2">
                     <div class=" p-2 font-normal tracking-wide w-full text-justify  rounded-lg bg-white border shadow-sm ">
@@ -24,7 +24,7 @@
                                     x-on:click="open = !open, for_edit = !for_edit, add = !add" x-show="!for_edit">+</button>
                             </div>
                             <div class="grow rounded  " x-show="!open">
-                                <input class="w-full h-9 mx-2 rounded" wire:model="search" type="text" placeholder="Buscar Pacientes...">
+                                <input class="w-full h-9 mx-2 rounded" wire:model="search" type="text" placeholder="Buscar Clientes...">
                             </div>
                         </div>
                         <div x-show="open">
@@ -32,9 +32,9 @@
                                 <div class="bg-white text-slate-900 border m-2 p-2 rounded shadow-md text-center">
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">NOMBRE</label>
-                                        <input wire:model="nombre" name="NOMBRE" type="text" placeholder="Ingrese los nombres..." class="w-80 p-2 rounded form-input" required>
-                                        @error('nombre')
+                                            <span for="id" class="m-2 text-left  form-label ">NOMBRES</label>
+                                        <input wire:model="nombres_cli" name="nombres" type="text" placeholder="Ingrese los nombres..." class="w-80 p-2 rounded form-input" required>
+                                        @error('nombres_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">FECHA NACIMIENTO</label>
-                                        <input wire:model="fecha" name="fecha" type="date" placeholder="Ingrese una fecha..." class="w-80 p-2 rounded form-input" required>
-                                        @error('fecha')
+                                            <span for="id" class="m-2 text-left  form-label ">APELLIDOS</label>
+                                        <input wire:model="apellidos_cli" name="apellidos" type="text" placeholder="Ingrese los apellidos..." class="w-80 p-2 rounded form-input" required>
+                                        @error('apellidos_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -53,9 +53,9 @@
 
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">TIPO</label>
-                                        <input wire:model="tipo" name="tipo" type="text" placeholder="Ingrese el tipo..." class="w-80 p-2 rounded form-input" required>
-                                        @error('tipo')
+                                            <span for="id" class="m-2 text-left  form-label ">CÉDULA</label>
+                                        <input wire:model="cedula_cli" name="cedula" type="number" placeholder="Ingrese el número de cédula..." class="w-80 p-2 rounded form-input" required>
+                                        @error('cedula_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -63,9 +63,9 @@
                                     </div>
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">ESPECIE</label>
-                                        <input wire:model="especie" name="especie" type="text" placeholder="Ingrese la especie..." class="w-80 p-2 rounded form-input" required>
-                                        @error('especie')
+                                            <span for="id" class="m-2 text-left  form-label ">TELÉFONO</label>
+                                        <input wire:model="telefono_cli" name="telefono" type="number" placeholder="Ingrese el telefono..." class="w-80 p-2 rounded form-input" required>
+                                        @error('telefono_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -75,9 +75,9 @@
                                 <div class="bg-white text-slate-900 border m-2 p-2 rounded shadow-md text-center">
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">RAZA</label>
-                                        <input wire:model="raza" name="raza" type="text" placeholder="Ingrese la raza..." class="w-80 p-2 rounded form-input" required>
-                                        @error('raza')
+                                            <span for="id" class="m-2 text-left  form-label ">CORREO</label>
+                                        <input wire:model="correo_cli" name="correo" type="text" placeholder="Ingrese el correo..." class="w-80 p-2 rounded form-input" required>
+                                        @error('correo_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -85,19 +85,9 @@
                                     </div>
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">SEXO</label>
-                                        <input wire:model="sexo" name="sexo" type="string" placeholder="Ingrese el sexo..." class="w-80 p-2 rounded form-input" required>
-                                        @error('sexo')
-                                            <div class="text-red-700">
-                                                <span class="error">{{ $message }}</span>
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="flex-auto flex m-2 ">
-                                        <label class="font-semibold block w-32 m-2 ">
-                                            <span for="id" class="m-2 text-left  form-label ">PROPIETARIO</label>
-                                        <input wire:model="propietario" name="propietario" type="string" placeholder="Ingrese el propietario..." class="w-80 p-2 rounded form-input" required>
-                                        @error('propietario')
+                                            <span for="id" class="m-2 text-left  form-label ">DIRECCIÓN</label>
+                                        <input wire:model="direccion_cli" name="direccion" type="string" placeholder="Ingrese la dirección..." class="w-80 p-2 rounded form-input" required>
+                                        @error('direccion_cli')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
                                             </div>
@@ -130,34 +120,32 @@
                                     <thead class="border-b border-gray-500 bg-gray-50">
                                         <tr class="text-xs w-full text-justify text-gray-500">
                                             <th class="px-2 py-1">ID</th>
-                                            <th class="px-4 py-3">NOMBRE</th>
-                                            <th class="px-4 py-3">FECHA</th>
-                                            <th class="px-4 py-3">TIPO</th>
-                                            <th class="px-4 py-3">ESPECIE</th>
-                                            <th class="px-4 py-3">RAZA</th>
-                                            <th class="px-4 py-3">SEXO</th>
-                                            <th class="px-4 py-3">PROPIETARIO</th>
+                                            <th class="px-4 py-3">NOMBRES</th>
+                                            <th class="px-4 py-3">APELLIDOS</th>
+                                            <th class="px-4 py-3">CÉDULA</th>
+                                            <th class="px-4 py-3">TELÉFONO</th>
+                                            <th class="px-4 py-3">CORREO</th>
+                                            <th class="px-4 py-3">DIRECCIÓN</th>
                                             <th class="px-4 py-3">ACCION</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" mx-auto divide-y divide-gray-300">
                                     
-                                        @foreach ($pacients as $pacient)
+                                        @foreach ($clients as $client)
                       
                                             <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
-                                                <td class="px-2 ">{{ $pacient->id }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify  first-letter:uppercase">{{ $pacient->nombre }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $pacient->fecha_nacimiento }}</td>
-                                                <td class="px-4 py-3 text-xs  text-justify ">{{ $pacient->tipo }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->especie }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->raza }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->sexo }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->propietario }}</td>
+                                                <td class="px-2 ">{{ $client->id }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify  first-letter:uppercase">{{ $client->nombres_cli }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $client->apellidos_cli }}</td>
+                                                <td class="px-4 py-3 text-xs  text-justify ">{{ $client->cedula_cli }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $client->telefono_cli }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $client->correo_cli }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $client->direccion_cli }}</td>
 
                                                 <td class="px-4 py-3 text-xs w-full whitespace-nowrap  text-justify">
-                                                    <button wire:click="edit({{ $pacient }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"
+                                                    <button wire:click="edit({{ $client }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"
                                                         class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">EDITAR</button>
-                                                    <button wire:click="destroy({{ $pacient }})"
+                                                    <button wire:click="destroy({{ $client }})"
                                                         class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">ELIMINAR</button>
                                                 </td>
                                             </tr>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PacientController;
 
 /*
@@ -19,7 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('cliente', ClienteController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,5 +32,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/pacients', [PacientController::class, 'index'])->name('pacient');
-
+    Route::get('/clients', [ClientController::class, 'index'])->name('client');
 });
