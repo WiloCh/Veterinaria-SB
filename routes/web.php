@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PacientController;
+use App\Http\Controllers\RecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,5 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/pacients', [PacientController::class, 'index'])->name('pacient');
     Route::get('/clients', [ClientController::class, 'index'])->name('client');
+    Route::get('/records', [RecordController::class, 'index'])->name('record');
 });
