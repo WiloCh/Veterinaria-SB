@@ -9,11 +9,11 @@ use Livewire\WithPagination;
 class Pacients extends Component
 {
     use WithPagination;
-    public $accion = 'store';
+    public $accion = "store";
     public $nombre, $fecha, $tipo, $especie, $raza, $sexo, $propietario , $id_paciente;
     protected $rules = [
 
-        'nombre'  => 'required|string',
+        'nombre'  => 'required',
         'fecha' => 'required',
         'tipo'  => 'required',
         'especie'  => 'required',
@@ -39,13 +39,12 @@ class Pacients extends Component
 
     public function render()
     {
-        $pacients = Pacient::orderBy('id', 'desc');
+        $pacients = Pacient::all();
         return view('livewire.pacients', compact('pacients'));
     }
     public function store()
     {
-        $this->accion = "store";
-        $this->validate();
+        // $this->validate();
         Pacient::create([
             'nombre' => $this->nombre,
             'fecha_nacimiento' => $this->fecha,
@@ -55,11 +54,11 @@ class Pacients extends Component
             'sexo' => $this->sexo,
             'propietario' => $this->propietario
         ]);
-        $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
+        $this->default();
 
     }
     public function edit(Pacient $pacient ){
-        $this->accion = "update";
+        $this->accion = 'update';
         $this->nombre = $pacient->nombre;
         $this->fecha = $pacient->fecha_nacimiento;
         $this->tipo = $pacient->tipo;
@@ -80,7 +79,7 @@ class Pacients extends Component
             'sexo' => $this->sexo,
             'propietario' => $this->propietario
         ]);
-        $this->reset(['nombre','fecha','tipo','especie','raza','sexo','propietario','accion']);
+        $this->default();
     }
     public function destroy(Pacient $pacient){
         return $pacient->delete();
