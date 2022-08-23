@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Record extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
     protected $fillable = [
         'peso_paciente',
         'edad_paciente',
@@ -21,6 +22,13 @@ class Record extends Model
         'diagnostico',
         'examenes',
         'receta',
-        'fecha_siguiente_visita'
+        'fecha_siguiente_visita',
+        'id_paciente',
+        'id'
     ];
+
+    public function pacient()
+    {
+        return $this->belongsTo('App\Models\Pacient', 'id_paciente', 'id');
+    }
 }

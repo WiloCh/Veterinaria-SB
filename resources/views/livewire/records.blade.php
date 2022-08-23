@@ -32,6 +32,20 @@
                                 <div class="bg-white text-slate-900 border m-2 p-2 rounded shadow-md text-center">
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
+                                            <span for="id_paciente" class="m-2 text-left  form-label ">PACIENTE</label>
+                                        <select wire:model="id_paciente" name="id_paciente" class="w-80 p-2 rounded form-select" required>
+                                            @foreach ($pacients as $pacient)
+                                                <option value="{{ $pacient->id }}">{{ $pacient->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('peso_paciente')
+                                            <div class="text-red-700">
+                                                <span class="error">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="flex-auto flex m-2 ">
+                                        <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">PESO DEL PACIENTE</label>
                                         <input wire:model="peso_paciente" name="peso_paciente" type="number" placeholder="Ingrese el peso del paciente..." class="w-80 p-2 rounded form-input" required>
                                         @error('peso_paciente')
@@ -165,6 +179,7 @@
                                     <thead class="border-b border-gray-500 bg-gray-50">
                                         <tr class="text-xs w-full text-justify text-gray-500">
                                             <th class="px-2 py-1">ID</th>
+                                            <th class="px-2 py-1">PACIENTE</th>
                                             <th class="px-4 py-3">PESO PACIENTE</th>
                                             <th class="px-4 py-3">EDAD PACIENTE</th>
                                             <th class="px-4 py-3">FECHA VISITA</th>
@@ -178,7 +193,6 @@
                                             <th class="px-4 py-3">EXÁMENES COMPLEMENTARIOS</th>
                                             <th class="px-4 py-3">RECETA</th>
                                             <th class="px-4 py-3">FECHA PRÓXIMA VISITA</th>
-                                            <th class="px-4 py-3">PACIENTE</th>
                                             <th class="px-4 py-3">ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -188,6 +202,7 @@
                       
                                             <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
                                                 <td class="px-2 ">{{ $record->id }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify">{{ $record->pacient->nombre }}</td>
                                                 <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify">{{ $record->peso_paciente }}</td>
                                                 <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $record->edad_paciente }}</td>
                                                 <td class="px-4 py-3 text-xs  text-justify ">{{ $record->fecha_visita }}</td>
@@ -201,7 +216,6 @@
                                                 <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->examenes }}</td>
                                                 <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->receta }}</td>
                                                 <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_siguiente_visita }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">Paciente</td>
 
                                                 <td class="px-4 py-3 text-xs w-full whitespace-nowrap  text-justify">
                                                     <button wire:click="edit({{ $record }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"

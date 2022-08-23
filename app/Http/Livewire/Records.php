@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Record;
+use App\Models\Pacient;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,7 +11,7 @@ class Records extends Component
 {
     use WithPagination;
     public $accion = 'store';
-    public $peso_paciente, $edad_paciente, $fecha_visita, $fecha_vacuna, $codigo_vacuna, $nombre_vacuna, $fecha_medicamento, $nombre_medicamento, $sintomas, $diagnostico, $examenes, $receta, $fecha_siguiente_visita;
+    public $peso_paciente, $edad_paciente, $fecha_visita, $fecha_vacuna, $codigo_vacuna, $nombre_vacuna, $fecha_medicamento, $nombre_medicamento, $sintomas, $diagnostico, $examenes, $receta, $fecha_siguiente_visita, $id_paciente;
     protected $rules = [
 
         'peso_paciente'  => 'required',
@@ -20,6 +21,7 @@ class Records extends Component
         'diagnostico'  => 'required',
         'examenes'  => 'required',
         'receta'  => 'required',
+        'id_paciente' => 'required',
     ];
     protected $messages = [
 
@@ -29,7 +31,8 @@ class Records extends Component
         'sintomas'  => 'Dato requerido',
         'diagnostico'  => 'Dato requerido',
         'examenes'  => 'Dato requerido',
-        'receta'  => 'Dato requerido'
+        'receta'  => 'Dato requerido',
+        'id_paciente' => 'Paciente Requerido',
     ];
 
     public function updated($propertyName)
@@ -41,14 +44,17 @@ class Records extends Component
     {
         // $pacients = Pacient::orderBy('id', 'desc');
         $records = Record::all();
+        $pacients = Pacient::all();
+        
         // dd($pacients);
-        return view('livewire.records', compact('records'));
+        return view('livewire.records', compact('records', 'pacients'));
     }
     public function store()
     {
         $this->accion = "store";
         $this->validate();
         Record::create([
+            'id_paciente' => $this->id_paciente,
             'peso_paciente' => $this->peso_paciente,
             'edad_paciente' => $this->edad_paciente,
             'fecha_visita' => $this->fecha_visita,
@@ -63,11 +69,12 @@ class Records extends Component
             'receta' => $this->receta,
             'fecha_siguiente_visita' => $this->fecha_siguiente_visita
         ]);
-        $this->reset(['peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
+        $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
 
     }
     public function edit(Record $record ){
         $this->accion = "update";
+        $this->id_paciente = $record->id_paciente;
         $this->peso_paciente = $record->peso_paciente;
         $this->edad_paciente = $record->edad_paciente;
         $this->fecha_visita = $record->fecha_visita;
@@ -86,6 +93,7 @@ class Records extends Component
     public function update(){
         $record = Record::find($this->id_ficha);
         $record->update([
+            'id_paciente' => $this->id_paciente,
             'peso_paciente' => $this->peso_paciente,
             'edad_paciente' => $this->edad_paciente,
             'fecha_visita' => $this->fecha_visita,
@@ -100,13 +108,13 @@ class Records extends Component
             'receta' => $this->receta,
             'fecha_siguiente_visita' => $this->fecha_siguiente_visita
         ]);
-        $this->reset(['peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
+        $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
     }
     public function destroy(Record $record){
         return $record->delete();
     }
     public function default(){
 
-        $this->reset(['peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
+        $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
     }
 }
