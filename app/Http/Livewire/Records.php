@@ -2,15 +2,23 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RecordController;
 use App\Models\Record;
 use App\Models\Pacient;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
+use PDF;
+use Ramsey\Uuid\Type\Integer;
 
 class Records extends Component
 {
     use WithPagination;
     public $accion = 'store';
+    public $flag = false;
+    public $record = array() ,$nombre_paciente;
     public $peso_paciente, $edad_paciente, $fecha_visita, $fecha_vacuna, $codigo_vacuna, $nombre_vacuna, $fecha_medicamento, $nombre_medicamento, $sintomas, $diagnostico, $examenes, $receta, $fecha_siguiente_visita, $id_paciente;
     protected $rules = [
 
@@ -40,15 +48,67 @@ class Records extends Component
         $this->validateOnly($propertyName);
     }
 
+
     public function render()
     {
         // $pacients = Pacient::orderBy('id', 'desc');
-        $records = Record::all();
-        $pacients = Pacient::all();
-        
-        // dd($pacients);
-        return view('livewire.records', compact('records', 'pacients'));
+        if ($this->flag) {
+            $re = $this->record;
+            return view('livewire.records', compact('re'));
+
+        } else {
+            $records = Record::all();
+            $pacients = Pacient::all();
+
+            return view('livewire.records', compact('records', 'pacients'));
+        }
     }
+    public function shareData($pa){
+        return
+        redirect()->action([RecordController::class , 'generatePDF'],['id'=>$pa]);
+    }
+    public function generatePDF(Request $request)
+    {
+        $users = User::where('id_paciente',$request->id_paciente)->get();
+
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ];
+
+        $pdf = PDF::loadView('index', $data);
+
+        return $pdf->download('itsolutionstuff.pdf');
+    }
+
+    public function downloadPdf(){
+
+        // $this->nombre_paciente = 'alex';
+
+        // $re = $this->record;
+        // view()->share('re',$re);
+
+        // $pdf = PDF::loadView('index',compact('re'));
+        // $this->nombre_paciente = 'alex';
+
+
+        // return $pdf->download('pdf_file.pdf');$users = User::get();
+        $users = User::get();
+
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ];
+
+        $pdf = PDF::loadView('index', $data);
+
+        return $pdf->download('itsolutionstuff.pdf');
+
+
+    }
+
     public function store()
     {
         $this->accion = "store";
@@ -70,9 +130,9 @@ class Records extends Component
             'fecha_siguiente_visita' => $this->fecha_siguiente_visita
         ]);
         $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
-
     }
-    public function edit(Record $record ){
+    public function edit(Record $record)
+    {
         $this->accion = "update";
         $this->id_paciente = $record->id_paciente;
         $this->peso_paciente = $record->peso_paciente;
@@ -90,7 +150,8 @@ class Records extends Component
         $this->fecha_siguiente_visita = $record->fecha_siguiente_visita;
         $this->id_ficha = $record->id;
     }
-    public function update(){
+    public function update()
+    {
         $record = Record::find($this->id_ficha);
         $record->update([
             'id_paciente' => $this->id_paciente,
@@ -110,10 +171,12 @@ class Records extends Component
         ]);
         $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
     }
-    public function destroy(Record $record){
+    public function destroy(Record $record)
+    {
         return $record->delete();
     }
-    public function default(){
+    public function default()
+    {
 
         $this->reset(['id_paciente', 'peso_paciente', 'edad_paciente', 'fecha_visita', 'fecha_vacuna', 'codigo_vacuna', 'nombre_vacuna', 'fecha_medicamento', 'nombre_medicamento', 'sintomas', 'diagnostico', 'examenes', 'receta', 'fecha_siguiente_visita']);
     }

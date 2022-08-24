@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,5 @@ Route::middleware([
     Route::get('/pacients', [PacientController::class, 'index'])->name('pacient');
     Route::get('/clients', [ClientController::class, 'index'])->name('client');
     Route::get('/records', [RecordController::class, 'index'])->name('record');
+    Route::get('/generate-pdf/{id}', [RecordController::class, 'generatePDF'])->name('pdf');
 });

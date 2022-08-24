@@ -5,7 +5,7 @@
                 display: none !important;
             }
         </style>
-        <div class="">
+        <div class="{{ $flag != false ? 'hidden' : '' }}">
             <div x-cloak x-data="{ open: false, for_edit: false, add: false, edit: false }">
                 <div x-show="!open" class="uppercase my-2 font-semibold tracking-wide w-full  rounded p-2 bg-white">
                     Lista de Fichas Clínicas
@@ -34,9 +34,11 @@
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id_paciente" class="m-2 text-left  form-label ">PACIENTE</label>
                                         <select wire:model="id_paciente" name="id_paciente" class="w-80 p-2 rounded form-select" required>
-                                            @foreach ($pacients as $pacient)
-                                                <option value="{{ $pacient->id }}">{{ $pacient->nombre }}</option>
-                                            @endforeach
+                                            @if (!$flag)
+                                                @foreach ($pacients as $pacient)
+                                                    <option value="{{ $pacient->id }}">{{ $pacient->nombre }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         @error('peso_paciente')
                                             <div class="text-red-700">
@@ -47,7 +49,8 @@
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">PESO DEL PACIENTE</label>
-                                        <input wire:model="peso_paciente" name="peso_paciente" type="number" placeholder="Ingrese el peso del paciente..." class="w-80 p-2 rounded form-input" required>
+                                        <input wire:model="peso_paciente" name="peso_paciente" type="number" placeholder="Ingrese el peso del paciente..." class="w-80 p-2 rounded form-input"
+                                            required>
                                         @error('peso_paciente')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
@@ -57,7 +60,8 @@
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">EDAD DEL PACIENTE</label>
-                                        <input wire:model="edad_paciente" name="edad_paciente" type="number" placeholder="Ingrese la edad del paciente..." class="w-80 p-2 rounded form-input" required>
+                                        <input wire:model="edad_paciente" name="edad_paciente" type="number" placeholder="Ingrese la edad del paciente..." class="w-80 p-2 rounded form-input"
+                                            required>
                                         @error('edad_paciente')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
@@ -95,12 +99,14 @@
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">FECHA DE MEDICAMENTO</label>
-                                        <input wire:model="fecha_medicamento" name="fecha_medicamento" type="date" placeholder="Ingrese la fecha en la que se dio el medicamento..." class="w-80 p-2 rounded form-input">
+                                        <input wire:model="fecha_medicamento" name="fecha_medicamento" type="date" placeholder="Ingrese la fecha en la que se dio el medicamento..."
+                                            class="w-80 p-2 rounded form-input">
                                     </div>
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">NOMBRE DEL MEDICAMENTO</label>
-                                        <input wire:model="nombre_medicamento" name="nombre_medicamento" type="text" placeholder="Ingrese el nombre del medicamento..." class="w-80 p-2 rounded form-input">
+                                        <input wire:model="nombre_medicamento" name="nombre_medicamento" type="text" placeholder="Ingrese el nombre del medicamento..."
+                                            class="w-80 p-2 rounded form-input">
                                     </div>
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
@@ -125,7 +131,8 @@
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">EXAMENES</label>
-                                        <input wire:model="examenes" name="examenes" type="text" placeholder="Ingrese los examenes complementarios..." class="w-80 p-2 rounded form-input" required>
+                                        <input wire:model="examenes" name="examenes" type="text" placeholder="Ingrese los examenes complementarios..." class="w-80 p-2 rounded form-input"
+                                            required>
                                         @error('examenes')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
@@ -145,7 +152,8 @@
                                     <div class="flex-auto flex m-2 ">
                                         <label class="font-semibold block w-32 m-2 ">
                                             <span for="id" class="m-2 text-left  form-label ">FECHA PRÓXIMA VISITA</label>
-                                        <input wire:model="fecha_siguiente_visita" name="fecha_siguiente_visita" type="date" placeholder="Ingrese la fecha para la siguiente visita..." class="w-80 p-2 rounded form-input" required>
+                                        <input wire:model="fecha_siguiente_visita" name="fecha_siguiente_visita" type="date" placeholder="Ingrese la fecha para la siguiente visita..."
+                                            class="w-80 p-2 rounded form-input" required>
                                         @error('fecha_siguiente_visita')
                                             <div class="text-red-700">
                                                 <span class="error">{{ $message }}</span>
@@ -164,10 +172,10 @@
                                         class="text-white bg-red-800 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">AGREGAR</button>
                                 </div>
                             @else
-                            <div class="text-slate-900 m-2 p-2 text-center">
-                                <button wire:click="default" x-on:click="open = !open , for_edit =!for_edit,edit = !edit"
-                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-6 py-3 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 ">
-                                    CANCELAR</button>
+                                <div class="text-slate-900 m-2 p-2 text-center">
+                                    <button wire:click="default" x-on:click="open = !open , for_edit =!for_edit,edit = !edit"
+                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-6 py-3 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 ">
+                                        CANCELAR</button>
                                     <button wire:click="update" x-on:click="open = !open , for_edit =!for_edit,edit = !edit"
                                         class="text-white bg-red-800 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">EDITAR</button>
                                 </div>
@@ -177,52 +185,56 @@
                             <div class="overflow-x-auto mx-auto overflow-hidden bg-white rounded-lg shadow ">
                                 <table class="w-fit overflow-hidden bg-white rounded-lg shadow ">
                                     <thead class="border-b border-gray-500 bg-gray-50">
-                                        <tr class="text-xs w-full text-justify text-gray-500">
+                                        <tr class="text-xs w-full whitespace-nowrap text-justify text-gray-500">
                                             <th class="px-2 py-1">ID</th>
                                             <th class="px-2 py-1">PACIENTE</th>
-                                            <th class="px-4 py-3">PESO PACIENTE</th>
-                                            <th class="px-4 py-3">EDAD PACIENTE</th>
-                                            <th class="px-4 py-3">FECHA VISITA</th>
-                                            <th class="px-4 py-3">FECHA VACUNACIÓN</th>
-                                            <th class="px-4 py-3">CÓDIGO VACUNA</th>
-                                            <th class="px-4 py-3">NOMBRE VACUNA</th>
-                                            <th class="px-4 py-3">FECHA MEDICAMENTO</th>
-                                            <th class="px-4 py-3">NOMBRE MEDICAMENTO</th>
-                                            <th class="px-4 py-3">SÍNTOMAS</th>
-                                            <th class="px-4 py-3">DIAGNÓSTICO</th>
-                                            <th class="px-4 py-3">EXÁMENES COMPLEMENTARIOS</th>
-                                            <th class="px-4 py-3">RECETA</th>
-                                            <th class="px-4 py-3">FECHA PRÓXIMA VISITA</th>
-                                            <th class="px-4 py-3">ACCIONES</th>
+                                            <th class="px-4 py-3 ">PESO PACIENTE</th>
+                                            <th class="px-4 py-3 ">EDAD PACIENTE</th>
+                                            <th class="px-4 py-3 ">FECHA VISITA</th>
+                                            <th class="px-4 py-3 ">FECHA VACUNACIÓN</th>
+                                            <th class="px-4 py-3 ">CÓDIGO VACUNA</th>
+                                            <th class="px-4 py-3 ">NOMBRE VACUNA</th>
+                                            <th class="px-4 py-3 ">FECHA MEDICAMENTO</th>
+                                            <th class="px-4 py-3 ">NOMBRE MEDICAMENTO</th>
+                                            <th class="px-4 py-3 ">SÍNTOMAS</th>
+                                            <th class="px-4 py-3 ">DIAGNÓSTICO</th>
+                                            <th class="px-4 py-3 ">EXÁMENES COMPLEMENTARIOS</th>
+                                            <th class="px-4 py-3 ">RECETA</th>
+                                            <th class="px-4 py-3 ">FECHA PRÓXIMA VISITA</th>
+                                            <th class="px-4 py-3 ">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody class=" mx-auto divide-y divide-gray-300">
-                                    
-                                        @foreach ($records as $record)
-                      
-                                            <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
-                                                <td class="px-2 ">{{ $record->id }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify">{{ $record->pacient->nombre }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify">{{ $record->peso_paciente }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $record->edad_paciente }}</td>
-                                                <td class="px-4 py-3 text-xs  text-justify ">{{ $record->fecha_visita }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_vacuna }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->codigo_vacuna }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->nombre_vacuna }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_medicamento }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->nombre_medicamento }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->sintomas }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->diagnostico }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->examenes }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->receta }}</td>
-                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_siguiente_visita }}</td>
+                                        @if (!$flag)
+                                            @foreach ($records as $record)
+                                                <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
+                                                    <td class="px-2 ">{{ $record->id }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify">{{ $record->pacient->nombre }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify">{{ $record->peso_paciente }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap text-justify">{{ $record->edad_paciente }}</td>
+                                                    <td class="px-4 py-3  text-xs  text-justify ">{{ $record->fecha_visita }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_vacuna }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->codigo_vacuna }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->nombre_vacuna }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_medicamento }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->nombre_medicamento }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->sintomas }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->diagnostico }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->examenes }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->receta }}</td>
+                                                    <td class="px-4 py-3  text-xs whitespace-nowrap  text-justify ">{{ $record->fecha_siguiente_visita }}</td>
 
-                                                <td class="px-4 py-3 text-xs w-full whitespace-nowrap  text-justify">
-                                                    <button wire:click="edit({{ $record }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"
-                                                        class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">EDITAR</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                    <td class="px-4 py-3  text-xs w-full whitespace-nowrap  text-justify">
+                                                        <button wire:click="edit({{ $record }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"
+                                                            class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">EDITAR</button>
+                                                        <button wire:click="shareData({{ $record->id_paciente }})"
+                                                            class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">PDF</button>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
                                     </tbody>
                                 </table>
                             </div>
@@ -231,6 +243,102 @@
                 </div>
             </div>
         </div>
+        <div class="{{ $flag != true ? 'hidden' : '' }}">
+            <div>
+                <div class="container mt-5">
+                    @if ($flag)
+                        <div>
+
+                            <body>
+                                <div class="container m-5 p-2">
+                                    <h2 class="text-center mb-3">Vista Previa "Historial del Paciente" </h2>
+                                    <div class="d-flex justify-content-end mb-4">
+                                        <button class="bg-red-800 m-2 p-2 text-white rounded-md border shadow-md" wire:click='downloadPdf'>Descargar Historial </button>
+                                    </div>
+                                    <a href="{{ action('generate-pdf', ['id' => $re['id_paciente']]) }}" type="button">pdf</a>
+
+                                    <div class="grid grid-cols-3 gap-5 mx-auto mb-5">
+
+
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Paciente</label>
+                                            <input type="text" wire:model='nombre_paciente'
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Peso</label>
+                                            <input type="text" value="{{ $re['peso_paciente'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Edad</label>
+                                            <input type="text" value="{{ $re['edad_paciente'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Fecha Visita</label>
+                                            <input type="date" value="{{ $re['fecha_visita'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Fecha Vacuna</label>
+                                            <input type="date" value="{{ $re['fecha_vacuna'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Codigo Vacuna</label>
+                                            <input type="text" value="{{ $re['codigo_vacuna'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Nombre Vacuna</label>
+                                            <input type="text" value="{{ $re['nombre_vacuna'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Fecha Medicamento</label>
+                                            <input type="date" value="{{ $re['fecha_medicamento'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Nombre Medicamento</label>
+                                            <input type="text" value="{{ $re['nombre_medicamento'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Sintoma</label>
+                                            <input type="text" value="{{ $re['sintomas'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Diagnostico</label>
+                                            <input type="text" value="{{ $re['diagnostico'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Examenes</label>
+                                            <input type="text" value="{{ $re['examenes'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Receta</label>
+                                            <input type="text" value="{{ $re['receta'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+                                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                                            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Fecha siguiente visita</label>
+                                            <input type="date" value="{{ $re['fecha_siguiente_visita'] }}"
+                                                class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300  transition duration-500 px-3 pb-3">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </body>
+                        </div>
+                    @endif
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
 </div>
