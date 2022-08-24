@@ -104,6 +104,38 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+                        <div x-show="!open" class="w-11/12 mx-auto ">
+                            <div class="overflow-x-auto mx-auto overflow-hidden bg-white rounded-lg shadow ">
+                                <table class="w-fit overflow-hidden bg-white rounded-lg shadow ">
+                                    <thead class="border-b border-gray-500 bg-gray-50">
+                                        <tr class="text-xs w-full text-justify text-gray-500">
+                                            <th class="px-2 py-1">ID</th>
+                                            <th class="px-4 py-3">NOMBRE</th>
+                                            <th class="px-4 py-3">FECHA</th>
+                                            <th class="px-4 py-3">TIPO</th>
+                                            <th class="px-4 py-3">ESPECIE</th>
+                                            <th class="px-4 py-3">RAZA</th>
+                                            <th class="px-4 py-3">SEXO</th>
+                                            <th class="px-4 py-3">PROPIETARIO</th>
+                                            <th class="px-4 py-3">ACCION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" mx-auto divide-y divide-gray-300">
+                                    
+                                        @foreach ($pacients as $pacient)
+                      
+                                            <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
+                                                <td class="px-2 ">{{ $pacient->id }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify  first-letter:uppercase">{{ $pacient->nombre }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $pacient->fecha_nacimiento }}</td>
+                                                <td class="px-4 py-3 text-xs  text-justify ">{{ $pacient->tipo }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->especie }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->raza }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->sexo }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->propietario }}</td>
+>>>>>>> origin/Grupo_1
 
                         @if ($accion == 'store')
                             <div class=" text-slate-900 m-2 p-2  text-center">
