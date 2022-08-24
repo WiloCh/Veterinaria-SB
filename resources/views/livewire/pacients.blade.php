@@ -112,6 +112,51 @@
                                     CANCELAR</button>
                                 <button wire:click="store" x-on:click="open = !open , for_edit =!for_edit , add = !add"
                                     class="text-white bg-red-800 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">AGREGAR</button>
+                                    <button wire:click="update" x-on:click="open = !open , for_edit =!for_edit,edit = !edit"
+                                        class="text-white bg-red-800 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">EDITAR</button>
+                                </div>
+                            @endif
+                        </div>
+                        <div x-show="!open" class="w-11/12 mx-auto ">
+                            <div class="overflow-x-auto mx-auto overflow-hidden bg-white rounded-lg shadow ">
+                                <table class="w-fit overflow-hidden bg-white rounded-lg shadow ">
+                                    <thead class="border-b border-gray-500 bg-gray-50">
+                                        <tr class="text-xs w-full text-justify text-gray-500">
+                                            <th class="px-2 py-1">ID</th>
+                                            <th class="px-4 py-3">NOMBRE</th>
+                                            <th class="px-4 py-3">FECHA</th>
+                                            <th class="px-4 py-3">TIPO</th>
+                                            <th class="px-4 py-3">ESPECIE</th>
+                                            <th class="px-4 py-3">RAZA</th>
+                                            <th class="px-4 py-3">SEXO</th>
+                                            <th class="px-4 py-3">PROPIETARIO</th>
+                                            <th class="px-4 py-3">ACCION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class=" mx-auto divide-y divide-gray-300">
+
+                                        @foreach ($pacients as $pacient)
+
+                                            <tr class="text-xs  text-justify mx-auto p-2 text-gray-500">
+                                                <td class="px-2 ">{{ $pacient->id }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify  first-letter:uppercase">{{ $pacient->nombre }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap text-justify">{{ $pacient->fecha_nacimiento }}</td>
+                                                <td class="px-4 py-3 text-xs  text-justify ">{{ $pacient->tipo }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->especie }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->raza }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->sexo }}</td>
+                                                <td class="px-4 py-3 text-xs whitespace-nowrap  text-justify ">{{ $pacient->propietario }}</td>
+
+                                                <td class="px-4 py-3 text-xs w-full whitespace-nowrap  text-justify">
+                                                    <button wire:click="edit({{ $pacient }})" x-on:click="open = !open , for_edit = !for_edit, edit = !edit"
+                                                        class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">EDITAR</button>
+                                                    <button wire:click="destroy({{ $pacient }})"
+                                                        class="btn bg-[#9c182f] border px-4 py-1 uppercase tracking-tighter rounded text-white hover:bg-[#be1935]">ELIMINAR</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                             @endif
                             @if ($accion == 'update')
