@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pacient extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
     protected $fillable = [
         'nombre',
         'fecha_nacimiento',
@@ -15,6 +16,13 @@ class Pacient extends Model
         'especie',
         'raza',
         'sexo',
-        'propietario'
+        'propietario',
+        'id_paciente',
+        'id'
     ];
+
+    public function records()
+    {
+        return $this->hasMany('App\Models\Record', 'id_paciente', 'id');
+    }
 }
